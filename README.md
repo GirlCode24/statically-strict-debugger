@@ -39,5 +39,5 @@ Set automated **presets** to control when lights turn **on** or **off** in each 
 - ✅ Cleaned up import paths and applied strict TypeScript typing
 - ✅ Added null checks and guard clauses to prevent runtime crashes
 
-Full bug fix details available in [`bug.md`](.BugS.MD)
+Full bug fix details available in [`bug.md`](Bugs.MD)
 
