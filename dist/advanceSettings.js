@@ -57,7 +57,7 @@ var _AdvanceSettings_instances,
   _AdvanceSettings_markup,
   _AdvanceSettings_analyticsUsage;
 // @ts-ignore
-// import { Chart } from 'chart.js';
+// import { Chart } from "chart.js";
 import Light from "./basicSettings.js";
 class AdvanceSettings extends Light {
   constructor() {
