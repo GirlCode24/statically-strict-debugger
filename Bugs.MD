@@ -67,4 +67,48 @@ Unnecessary `./ts/` prefix in import paths
 3. Added null checks for DOM operations
 4. Removed duplicate type check in handleLightIntensitySlider
 
+
+### BUG FIX 5:  SLIDER TARGET VALUE BUG 
+## Issue  
+The target value of the selected slider in `main.ts` (line 59) was being used as a string instead of a number, causing issues in light intensity handling.
+
+## Root Cause  
+In JavaScript/TypeScript, `HTMLInputElement.value` always returns a string — even for input types like `range`. Passing this directly to methods expecting a number leads to unintended behavior or runtime type issues in TypeScript.
+
+## Fix Solution  
+Use the **unary plus operator (`+`)** to convert `slider.value` from a string to a number before passing it into the intensity handler function.t.
+
+
+### BUG FIX 6: LIGHT INTENSITY CONDITION BUG
+## Issue
+In basicSettings.ts (line 93),The light component's `isLightOn` property was being incorrectly set to `false`, even when `intensity > 0`. This caused the UI to reflect the bulb as "off" despite having a visible intensity.
+
+## Root Cause
+In `handleLightIntensitySlider()` (inside `basicSettings.ts` or `Light` class), the light was only toggled **off** when `intensity === 0`, but did not handle setting it **on** correctly for other cases. The value of `componentData.isLightOn` was not reliably updated based on intensity.
+
+## Fix Solution
+Update the conditional logic to explicitly set `componentData.isLightOn = true` when `intensity > 0`.
+
+
+### BUG FIX 7: ROOM LIGHT ON & OFF BUG
+## Issue
+The room bulb does not toggle correctly between ON and OFF when triggered.
+
+## Root Cause
+This is directly caused by the faulty isLightOn logic addressed in Bug Fix 6.
+
+## Fix Solution
+Fixing the condition to check intensity > 0 automatically corrects the bulb’s ON/OFF toggle behavior.
+
+
+### BUG FIX 8: CUSTOMIZE AUTOMATIC PRESET
+## Issue
+In advanceSettings.ts lines 162, the !! (double bang) operator is used in conditional checks inside customizeAutomaticOnPreset and customizeAutomaticOffPreset. This causes the condition to always return a boolean (true or false), which prevents the toggle logic from executing correctly.
+
+## Root Cause
+The use of !! evaluates to a truthy boolean, so the condition inside the if block always returns early, preventing light toggling.
+
+## Fix Solution
+Used a single ! (bang) to correctly evaluate the negation logic.
+
  
